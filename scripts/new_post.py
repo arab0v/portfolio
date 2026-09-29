@@ -26,6 +26,7 @@ TEMPLATE = """<!DOCTYPE html>
   <div class="navlinks">
     <a href="../../index.html">Home</a>
     <a href="../index.html" class="active">Blog</a>
+    <a href="mailto:yousefaldabbas0@outlook.com">Contact</a>
   </div>
 </nav>
 <div class="wrap">

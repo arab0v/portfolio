@@ -22,6 +22,7 @@
   .wrap{max-width:900px; margin:0 auto; padding:40px 24px 80px;}
   nav{display:flex; justify-content:space-between; align-items:center; padding:16px 24px;}
   nav .logo{font-weight:bold; color:var(--text);}
+  nav .navlinks{display:flex; gap:20px;}
   .hero{
     background:var(--card); border:1px solid var(--border); border-radius:10px;
     padding:28px 32px; margin-top:20px;
@@ -73,7 +74,8 @@
 <body>
 <nav>
   <div class="logo">yousef@backend:~$</div>
-  <div style="display:flex; gap:20px;">
+  <div class="navlinks">
+    <a href="index.html">Home</a>
     <a href="blog/index.html">Blog</a>
     <a href="mailto:yousefaldabbas0@outlook.com">Contact</a>
   </div>
@@ -100,8 +102,8 @@
   <h2 class="section">System Architecture & Projects</h2>
 
   <div class="project">
-    <h3>Rezefy — NestJS Turbo Monorepo</h3>
-    <p class="desc">Backend engineer on Rezefy's NestJS Turborepo monorepo (rezefy-api, rezefy-admin, rezefy-web), ramping up fast and shipping features within the first weeks.</p>
+    <h3>Rezefy — Student Housing Solution</h3>
+    <p class="desc">Backend engineer on Rezefy, a student housing platform built as a NestJS Turborepo monorepo (rezefy-api, rezefy-admin, rezefy-web), ramping up fast and shipping features within the first weeks.</p>
     <h4>Key Achievements</h4>
     <ul>
       <li>Implement REST APIs and service logic in NestJS/TypeScript backed by PostgreSQL and Redis</li>
@@ -154,7 +156,7 @@
         <h4>API Development</h4>
         <ul>
           <li>• REST APIs across FastAPI, Django DRF and NestJS</li>
-          <li>• Auth/authorization via Keycloak</li>
+          <li>• Auth/authorization via Keycloak and Auth0</li>
           <li>• Multi-service architecture in monorepo (Turborepo)</li>
         </ul>
       </div>
@@ -164,6 +166,7 @@
           <li>• Postgres schema design & query optimization</li>
           <li>• Redis for caching / session data</li>
           <li>• Custom ODM for CosmosDB in MedWrite.ai</li>
+          <li>• Multi-tenant data isolation & HL7/FHIR integration</li>
         </ul>
       </div>
     </div>
@@ -183,8 +186,8 @@
       <div class="col">
         <h4>Other</h4>
         <ul>
-          <li>• React Native / Expo mobile client (rezefy-mobile)</li>
-          <li>• AI-agent orchestration workflows for team execution</li>
+          <li>• Compliance: GDPR, financial data protection standards</li>
+          <li>• AI-assisted development (Claude, Claude Code) for faster delivery</li>
           <li>• Prefers offline-first / community-standard tooling</li>
         </ul>
       </div>
