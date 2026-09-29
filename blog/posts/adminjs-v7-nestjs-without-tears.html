@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AdminJS v7 in Classic NestJS Without Tears — Yousef Aldabbas</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+  .update-note{
+    background:#1c2128; border:1px solid var(--green); border-radius:8px;
+    padding:16px 20px; margin-bottom:24px; font-size:13.5px; color:#c7ccd4;
+  }
+  .update-note strong{color:var(--green);}
+  .post-body pre code{white-space:pre-wrap;}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">yousef@backend:~$</div>
+  <div class="navlinks">
+    <a href="../../index.html">Home</a>
+    <a href="../index.html" class="active">Blog</a>
+  </div>
+</nav>
+<div class="wrap">
+  <a class="back" href="../index.html">&larr; back to posts</a>
+  <div class="post-body">
+    <h1>AdminJS v7 in Classic NestJS Without Tears</h1>
+    <div class="meta">2026-09-29 · nestjs, adminjs, esm</div>
+
+    <div class="update-note">
+      <strong>Update:</strong> This post was written against AdminJS v7 running on <code>@adminjs/nestjs</code> v11, which did not support ESM interop out of the box — hence the dynamic <code>import()</code> workaround below. As of <code>@adminjs/nestjs</code> v12, ESM is officially supported, so if you're on v12+ you likely don't need this workaround anymore. Leaving the original post below for anyone still pinned to v11 or an older CommonJS setup.
+    </div>
+
+    <p>I'm writing this blog because AdminJS decided to go with ESM in their latest version (v7) and make my life harder (a bit) because NestJS are still using CommonJS and there's <a href="https://github.com/nestjs/nest/issues/13319" target="_blank">no plan to support ESM</a>.</p>
+
+    <h2>Simply my problem was</h2>
+    <p>Use <code>require('adminjs')</code> and you get a <code>ERR_REQUIRE_ESM</code>. Use normal import in TypeScript, wait for CJS to compile, again you get a <code>ERR_REQUIRE_ESM</code>.</p>
+
+    <h2>But hold up isn't there an official example?</h2>
+    <p>There's this repo people point to: <a href="https://github.com/dziraf/adminjs-v7-with-nestjs" target="_blank">dziraf/adminjs-v7-with-nestjs</a>. It claims to show AdminJS v7 running smoothly with NestJS, and the AdminJS docs even link to it as an example. Cool, right? Except... have you actually tried cloning and running it? It doesn't work. There's a known open issue that's been sitting there for years: <a href="https://github.com/dziraf/adminjs-v7-with-nestjs/issues/1" target="_blank">Not running · Issue #1</a>.</p>
+
+    <h2>The trick in one sentence</h2>
+    <p>Load AdminJS and friends with <strong>dynamic <code>import()</code></strong> inside an async function and keep everything else CommonJS like it always was.</p>
+
+    <h2>Time to code</h2>
+    <p>Full working example: <a href="https://github.com/arab0v/nestjs-adminjs-starter" target="_blank">github.com/arab0v/nestjs-adminjs-starter</a></p>
+    <p>Make sure to roll back all the changes from the AdminJS documentation first, then let's start.</p>
+
+    <p><strong>Package Installation</strong> — create a new Nest project in the current dir if you haven't already:</p>
+    <pre><code>nest new .</code></pre>
+
+    <p>Install all the boys. Sequelize in my case (could be whatever you want — just install the ORM adapter from the <a href="https://docs.adminjs.co/installation/adapters" target="_blank">AdminJS docs</a>):</p>
+    <pre><code>npm install sequelize adminjs @adminjs/nestjs @adminjs/sequelize @adminjs/express express-session express-formidable</code></pre>
+
+    <p>Create the AdminJS ESM loader:</p>
+    <pre><code>touch src/adminjs-loader.ts</code></pre>
+
+    <p><strong>src/adminjs-loader.ts</strong></p>
+    <pre><code>// This file is the only place where we touch ESM stuff
+export async function loadAdminJS() {
+  const [adminjs, adminjsNest, sequelizeAdapter] = await Promise.all([
+    import('adminjs'),
+    import('@adminjs/nestjs'),
+    import('@adminjs/sequelize'),
+  ]);
+
+  const AdminJS = adminjs.default;
+  const { AdminModule } = adminjsNest;
+
+  // Tell AdminJS to use Sequelize — you can use any other ORM adapter
+  AdminJS.registerAdapter({
+    Database: sequelizeAdapter.Database,
+    Resource: sequelizeAdapter.Resource,
+  });
+
+  return { AdminJS, AdminModule };
+}</code></pre>
+
+    <p><strong>src/main.ts</strong> (almost unchanged)</p>
+    <pre><code>import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  // We let AppModule do async setup (including AdminJS)
+  const rootModule = await AppModule.forRoot();
+  const app = await NestFactory.create(rootModule);
+  await app.listen(process.env.PORT || 3000);
+}
+bootstrap();</code></pre>
+
+    <p><strong>src/app.module.ts</strong> (the place where you actually use it)</p>
+    <pre><code>import { Module } from '@nestjs/common';
+import { loadAdminJS } from './adminjs-loader';
+
+@Module({})
+export class AppModule {
+  static async forRoot() {
+    const { AdminModule } = await loadAdminJS();
+    return {
+      module: AppModule,
+      imports: [
+        AdminModule.createAdmin({
+          adminJsOptions: {
+            rootPath: '/admin',
+          },
+        }),
+      ],
+    };
+  }
+}</code></pre>
+
+    <h2>Why this actually works well enough</h2>
+    <ul>
+      <li>Dynamic <code>import()</code> is allowed in CommonJS files</li>
+      <li>Nothing else in your project needs to become ESM</li>
+      <li>No <code>"type": "module"</code> in package.json</li>
+      <li>No tsconfig <code>"module": "nodenext"</code> nightmare</li>
+      <li>No wrappers, no babel plugins, no weird loaders</li>
+      <li>You only pay the async price once at startup</li>
+    </ul>
+
+    <h2>What usually goes wrong (heads up)</h2>
+    <ul>
+      <li>Don't do <code>import AdminJS from 'adminjs'</code> at the top of files — TypeScript will compile it → runtime crash</li>
+      <li>Put all AdminJS-related imports <strong>only</strong> inside <code>loadAdminJS()</code></li>
+    </ul>
+
+    <h2>Resources that led me to this solution</h2>
+    <ul>
+      <li><a href="https://docs.nestjs.com/fundamentals/dynamic-modules" target="_blank">DynamicModule chapter from NestJS</a></li>
+      <li><a href="https://stackoverflow.com/questions/70396400/how-to-use-es6-modules-in-commonjs" target="_blank">Running ESM packages in CommonJS</a></li>
+    </ul>
+
+    <h2>End</h2>
+    <p>This is not the most beautiful solution. But it's small, contained, and lets you keep running AdminJS v7 today without rewriting half your monorepo or forcing ESM on the whole team.</p>
+    <p>Good luck.</p>
+  </div>
+</div>
+</body>
+</html>

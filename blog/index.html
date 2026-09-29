@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <title>Blog — Yousef Aldabbas</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  .name-hero{
+    background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:28px 32px; margin-bottom:40px;
+  }
+  .name-hero h1{color:#fff; font-size:28px; margin-bottom:4px;}
+  .name-hero .sub{color:var(--muted); font-size:14px;}
+  .name-hero .links{margin-top:14px; display:flex; gap:16px; flex-wrap:wrap;}
+</style>
 </head>
 <body>
 <nav>
@@ -14,8 +23,21 @@
   </div>
 </nav>
 <div class="wrap">
+
+  <div class="name-hero">
+    <h1>Yousef Aldabbas</h1>
+    <div class="sub">Backend Software Engineer · Amman, Jordan</div>
+    <div class="links">
+      <a href="../index.html">Portfolio</a>
+      <a href="https://github.com/arab0v" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/yousef-aldabbas" target="_blank">LinkedIn</a>
+      <a href="mailto:yousefaldabbas0@outlook.com">Email</a>
+    </div>
+  </div>
+
   <h2 class="section">Posts</h2>
   <div id="posts"></div>
+
 </div>
 <script src="posts-data.js"></script>
 <script>
