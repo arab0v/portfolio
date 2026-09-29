@@ -1,0 +1,43 @@
+:root{
+  --bg:#0d0f12; --bg2:#0f1620; --card:#15181d; --border:#242a31;
+  --green:#4ade80; --text:#e5e7eb; --muted:#8b93a1; --accent:#7c3aed;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  background:
+    linear-gradient(var(--bg) 0%, var(--bg) 100%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.02) 0 1px, transparent 1px 32px);
+  color:var(--text);
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  line-height:1.6;
+}
+a{color:var(--green); text-decoration:none;}
+.wrap{max-width:900px; margin:0 auto; padding:40px 24px 80px;}
+nav{display:flex; justify-content:space-between; align-items:center; padding:16px 24px;}
+nav .logo{font-weight:bold; color:var(--text);}
+nav .navlinks{display:flex; gap:20px;}
+nav .navlinks a.active{color:#fff; border-bottom:1px solid var(--green);}
+h2.section{color:var(--green); font-size:13px; text-transform:uppercase; letter-spacing:1.5px; margin:40px 0 20px;}
+h2.section::before{content:"## "; color:var(--muted);}
+.post-card{
+  background:var(--card); border:1px solid var(--border); border-radius:10px;
+  padding:22px 26px; margin-bottom:18px; display:block;
+}
+.post-card:hover{border-color:var(--green);}
+.post-card .date{color:var(--muted); font-size:12px; margin-bottom:6px;}
+.post-card h3{color:#fff; font-size:19px; margin-bottom:6px;}
+.post-card p.desc{color:var(--muted); font-size:14px;}
+.tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+.tag{background:#1c2128; border:1px solid var(--border); color:var(--text); font-size:12px; padding:4px 9px; border-radius:6px;}
+.post-body{background:var(--card); border:1px solid var(--border); border-radius:10px; padding:32px;}
+.post-body h1{color:#fff; font-size:30px; margin-bottom:6px;}
+.post-body .meta{color:var(--muted); font-size:13px; margin-bottom:24px;}
+.post-body h2{color:var(--green); font-size:20px; margin:26px 0 10px;}
+.post-body p{color:#c7ccd4; font-size:15px; margin-bottom:14px;}
+.post-body ul{margin:0 0 14px 20px; color:#c7ccd4; font-size:15px;}
+.post-body li{margin-bottom:6px;}
+.post-body pre{background:#0b0d10; border:1px solid var(--border); border-radius:8px; padding:16px; overflow-x:auto; margin-bottom:16px;}
+.post-body code{font-family:inherit; color:var(--green); font-size:13.5px;}
+.back{display:inline-block; margin-bottom:20px; color:var(--muted);}
+.back:hover{color:var(--green);}

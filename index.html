@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yousef Aldabbas — Backend Engineer</title>
+<style>
+  :root{
+    --bg:#0d0f12; --bg2:#0f1620; --card:#15181d; --border:#242a31;
+    --green:#4ade80; --text:#e5e7eb; --muted:#8b93a1; --accent:#7c3aed;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:
+      linear-gradient(var(--bg) 0%, var(--bg) 100%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 1px, transparent 1px 32px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.02) 0 1px, transparent 1px 32px);
+    color:var(--text);
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    line-height:1.6;
+  }
+  a{color:var(--green); text-decoration:none;}
+  .wrap{max-width:900px; margin:0 auto; padding:40px 24px 80px;}
+  nav{display:flex; justify-content:space-between; align-items:center; padding:16px 24px;}
+  nav .logo{font-weight:bold; color:var(--text);}
+  .hero{
+    background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:28px 32px; margin-top:20px;
+  }
+  .dots{display:flex; gap:6px; margin-bottom:14px;}
+  .dots span{width:11px; height:11px; border-radius:50%;}
+  .dots span:nth-child(1){background:#ff5f56;}
+  .dots span:nth-child(2){background:#ffbd2e;}
+  .dots span:nth-child(3){background:#27c93f;}
+  .prompt{color:var(--green); font-size:14px; margin-bottom:6px;}
+  h1{font-size:36px; color:#fff; margin-bottom:4px;}
+  .title{color:var(--muted); font-size:16px; margin-bottom:18px;}
+  .tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    background:#1c2128; border:1px solid var(--border); color:var(--text);
+    font-size:12.5px; padding:5px 10px; border-radius:6px;
+  }
+  h2.section{color:var(--green); font-size:13px; text-transform:uppercase; letter-spacing:1.5px; margin:56px 0 20px;}
+  h2.section::before{content:"## "; color:var(--muted);}
+  .project{
+    background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:24px 28px; margin-bottom:22px;
+  }
+  .project h3{color:#fff; font-size:19px; margin-bottom:6px;}
+  .project p.desc{color:var(--muted); font-size:14px; margin-bottom:14px;}
+  .project h4{color:var(--green); font-size:12.5px; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;}
+  .project ul{list-style:none; margin-bottom:14px;}
+  .project li{font-size:14px; color:#c7ccd4; margin-bottom:5px; padding-left:14px; position:relative;}
+  .project li::before{content:"•"; position:absolute; left:0; color:var(--green);}
+  .impact{
+    background:var(--bg2); border:1px solid var(--border); border-radius:10px;
+    padding:30px; margin-bottom:20px;
+  }
+  .impact h3{color:#fff; font-size:17px; margin-bottom:14px;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .grid2 .col h4{color:var(--green); font-size:13px; margin-bottom:8px;}
+  .grid2 .col ul{list-style:none;}
+  .grid2 .col li{font-size:13.5px; color:#c7ccd4; margin-bottom:5px;}
+  .contact{
+    background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:32px; margin-top:56px; text-align:center;
+  }
+  .contact h2{color:#fff; font-size:22px; margin-bottom:6px;}
+  .contact .loc{color:var(--muted); font-size:13px; margin-bottom:16px;}
+  .links{display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-top:10px;}
+  @media (max-width:640px){ .grid2{grid-template-columns:1fr;} h1{font-size:28px;} }
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">yousef@backend:~$</div>
+  <div style="display:flex; gap:20px;">
+    <a href="blog/index.html">Blog</a>
+    <a href="mailto:yousefaldabbas0@outlook.com">Contact</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="dots"><span></span><span></span><span></span></div>
+    <div class="prompt">$ whoami</div>
+    <h1>Yousef Aldabbas</h1>
+    <div class="title">Backend Software Engineer · Amman, Jordan</div>
+    <div class="prompt">$ skills</div>
+    <div class="tags">
+      <span class="tag">Python</span><span class="tag">FastAPI</span>
+      <span class="tag">Django / DRF</span><span class="tag">TypeScript</span>
+      <span class="tag">NestJS</span><span class="tag">Go</span>
+      <span class="tag">PostgreSQL</span><span class="tag">Redis</span>
+      <span class="tag">Keycloak</span><span class="tag">CosmosDB</span>
+    </div>
+  </div>
+
+  <h2 class="section">System Architecture & Projects</h2>
+
+  <div class="project">
+    <h3>Rezefy — NestJS Turbo Monorepo</h3>
+    <p class="desc">Backend platform for Rezefy split into rezefy-api, rezefy-admin (AdminJS) and rezefy-web, with a companion React Native/Expo mobile app consuming the same API.</p>
+    <h4>Key Achievements</h4>
+    <ul>
+      <li>Built and maintained multi-service NestJS monorepo with shared libs and turbo pipelines</li>
+      <li>Integrated Keycloak for centralized auth/authorization across all services</li>
+      <li>Designed Postgres schema + Redis caching layer for core domain data</li>
+      <li>Shipped AdminJS-based internal admin panel for operations team</li>
+    </ul>
+    <div class="tags">
+      <span class="tag">NestJS</span><span class="tag">TypeScript</span><span class="tag">Postgres</span>
+      <span class="tag">Redis</span><span class="tag">Keycloak</span><span class="tag">Turborepo</span>
+    </div>
+  </div>
+
+  <div class="project">
+    <h3>MedWrite.ai — Clinical Documentation Platform</h3>
+    <p class="desc">Backend services for an AI-assisted clinical documentation product, built on Django REST Framework with a custom CosmosDB ODM layer.</p>
+    <h4>Key Achievements</h4>
+    <ul>
+      <li>Designed Django/DRF APIs serving AI-generated clinical notes</li>
+      <li>Built a custom ODM abstraction on top of Azure CosmosDB</li>
+      <li>Worked cross-functionally with ML pipeline for document generation</li>
+    </ul>
+    <div class="tags">
+      <span class="tag">Django</span><span class="tag">DRF</span><span class="tag">CosmosDB</span><span class="tag">Azure</span>
+    </div>
+  </div>
+
+  <div class="project">
+    <h3>Qawn Digital Bank — Microservices Platform</h3>
+    <p class="desc">Core banking microservices built with Python and FastAPI over ~4 years, covering account, transaction, and integration services.</p>
+    <h4>Key Achievements</h4>
+    <ul>
+      <li>Designed and shipped multiple FastAPI microservices in production</li>
+      <li>Built service-to-service integration and data contracts across teams</li>
+      <li>Worked within regulated fintech constraints for reliability and auditability</li>
+    </ul>
+    <div class="tags">
+      <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Microservices</span>
+    </div>
+  </div>
+
+  <h2 class="section">Impact & Focus Areas</h2>
+
+  <div class="impact">
+    <h3>Backend & API Design</h3>
+    <div class="grid2">
+      <div class="col">
+        <h4>API Development</h4>
+        <ul>
+          <li>• REST APIs across FastAPI, Django DRF and NestJS</li>
+          <li>• Auth/authorization via Keycloak</li>
+          <li>• Multi-service architecture in monorepo (Turborepo)</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Data Layer</h4>
+        <ul>
+          <li>• Postgres schema design & query optimization</li>
+          <li>• Redis for caching / session data</li>
+          <li>• Custom ODM for CosmosDB in MedWrite.ai</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="impact">
+    <h3>Cross-Stack & Tooling</h3>
+    <div class="grid2">
+      <div class="col">
+        <h4>Languages</h4>
+        <ul>
+          <li>• Python (FastAPI, Django/DRF)</li>
+          <li>• TypeScript (NestJS)</li>
+          <li>• Go</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Other</h4>
+        <ul>
+          <li>• React Native / Expo mobile client (rezefy-mobile)</li>
+          <li>• AI-agent orchestration workflows for team execution</li>
+          <li>• Prefers offline-first / community-standard tooling</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact">
+    <h2>Let's Connect</h2>
+    <div class="loc">Amman, Jordan</div>
+    <a href="mailto:yousefaldabbas0@outlook.com">yousefaldabbas0@outlook.com</a>
+    <div class="links">
+      <a href="https://github.com/yousefAldabbas" target="_blank">GitHub @yousefAldabbas</a>
+      <a href="https://linkedin.com/in/yousef-aldabbas" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
