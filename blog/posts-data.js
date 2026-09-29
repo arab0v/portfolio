@@ -8,10 +8,10 @@ const POSTS = [
     "tags": ["nestjs", "adminjs", "esm"]
   },
   {
-    "slug": "hello-world",
-    "title": "Starting This Blog",
-    "date": "2026-09-29",
-    "desc": "Why I'm writing about backend engineering, NestJS monorepos, and the stuff I actually run into at work.",
-    "tags": ["meta"]
+    "slug": "rezefy-ai-workflow",
+    "title": "Shipping Rezefy in Under 3 Months With 3 Technical People",
+    "date": "2026-09-24",
+    "desc": "Auth first, alignment second, code last — how a 3-person technical team shipped Rezefy's platform and admin portal, plus the real numbers: 125 agent sessions, 87 interrupted, recurring bugs, and how skill files stopped them repeating.",
+    "tags": ["ai-workflow", "nestjs", "adminjs", "keycloak"]
   }
 ];

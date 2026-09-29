@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shipping Rezefy in Under 3 Months With 3 Technical People — Yousef Aldabbas</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav>
+  <div class="logo">yousef@backend:~$</div>
+  <div class="navlinks">
+    <a href="../../index.html">Home</a>
+    <a href="../index.html" class="active">Blog</a>
+    <a href="mailto:yousefaldabbas0@outlook.com">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+  <a class="back" href="../index.html">&larr; back to posts</a>
+  <div class="post-body">
+    <h1>Shipping Rezefy in Under 3 Months With 3 Technical People</h1>
+    <div class="meta">2026-09-24 · ai-workflow, nestjs, adminjs, keycloak</div>
+
+    <p>Spent weeks evaluating admin frameworks before picking anything. AdminJS was the closest fit — not because it covers everything, but because it doesn't get in the way of the 20% it doesn't cover.</p>
+
+    <p><strong>TL;DR</strong> — Weeks evaluating AdminJS, then fixed its v7/ESM clash with NestJS before NestJS itself shipped ESM. Auth locked down (3-layer RBAC + Keycloak, Redis sessions, kill-everywhere) before one admin screen existed. Shipped all of Rezefy — platform + admin portal — in under 3 months, 3 technical people, running the agent across 125 sessions and roughly 17.5k of my own prompts. Every mistake it made got written into a skill file so the next session didn't repeat it.</p>
+
+    <h2>The first real fight</h2>
+    <p>First real fight with it had nothing to do with our admin flows: AdminJS v7 went full ESM while NestJS was still CommonJS-only (v12 hadn't landed ESM support yet), and the "official" example everyone links to doesn't even run. Wrote up the fix — dynamic <code>import()</code> confined to one loader file, rest of the app stays CommonJS — before NestJS's own team shipped ESM support: <a href="adminjs-v7-nestjs-without-tears.html">AdminJS v7 in Classic NestJS Without Tears</a>.</p>
+
+    <h2>Startup constraints</h2>
+    <p>We're a startup: 3 technical, 1 backend, 1 frontend, and our CTO. rezefy.com and landlord.rezefy.com are the same platform serving two different user types with genuinely complex flows. We don't have the headcount to hand-customize every button in an internal admin panel — so the first and only non-negotiable was auth. Get that right, keep the CRUDs simple, and don't burn our two engineers polishing a tool only five people use.</p>
+
+    <h2>Auth first</h2>
+    <p>Three-layer RBAC against Keycloak, Redis-backed sessions so a restart doesn't log everyone out, kill-session-everywhere for when someone needs to be locked out fast. Tested that hard before touching anything else, because a broken CRUD is an inconvenience and a broken auth check is not.</p>
+
+    <h2>Weeks of alignment, not code</h2>
+    <p>After auth was solid, I spent weeks — not writing code, talking. To our administrators, and to the AI agent, back and forth, aligning on what the admin experience actually needed to be. Not what I assumed they wanted.</p>
+
+    <p>New team, new everything, and we shipped all of Rezefy — the platform and the admin portal — to production in under 3 months. That was a milestone for us, and AI carried a real share of it. Pulling the raw agent logs for the admin app alone: 125 sessions since late August, ~17.5k prompts from me, 16k+ tool calls, 397 commits touching just <code>rezefy-admin</code> (60 of those in the last month), 23k lines added and 7.5k removed in that stretch. 23 resources registered, 94 components wired into the loader, ~68k lines of admin code total.</p>
+
+    <h2>Where I kept control</h2>
+    <p>My job was making sure the agent adapted to how I write NestJS — the server side stayed disciplined, my patterns, my review. Frontend I gave it more room to do what it does best.</p>
+
+    <h2>The challenges — where AI actually struggled</h2>
+    <p>Not a clean story. 87 of those sessions got interrupted mid-task — me stopping it because it went sideways, guessed at a field name instead of asking, or built something in the wrong direction entirely. Recurring failure modes worth naming:</p>
+    <ul>
+      <li>Same bug shape kept resurfacing across different resources — a "record" action handler returning a hand-rolled object instead of calling <code>record.toJSON(currentAdmin)</code>. Fixed it, moved to the next resource, agent reintroduced the identical bug three more times before it stuck.</li>
+      <li>Component registration is a two-file requirement (dev loader + prod bundler) — the agent forgot the second file constantly, which meant "works in dev, breaks in prod" surprises.</li>
+      <li>Padding/layout regressions repeated across 9 separate show pages — same one-line mismatch every time (a header-visibility flag changing what padding the component needed to supply itself).</li>
+    </ul>
+    <p>None of that got fixed by a better prompt in the moment. It got fixed by writing the failure and its correct pattern into a persistent skill file the moment I caught it — not as a note to myself, as a rule the next session reads before it touches the code. That skill file is now 604 lines across 16 sections. Early sessions, before the skill existed, were rough — lots of re-explaining the same constraints. By the last few weeks the pattern mostly held on the first pass, because the rule was already there instead of living in my memory.</p>
+
+    <h2>Where we are now</h2>
+    <p>Now we ship straight from a Jira ticket to the agent. We still review. We still QA before it goes out. But the gap between "ticket exists" and "code exists" isn't where our time goes anymore.</p>
+  </div>
+</div>
+</body>
+</html>
