@@ -32,25 +32,25 @@
       <strong>Update:</strong> This post was written against AdminJS v7 running on <code>@adminjs/nestjs</code> v11, which did not support ESM interop out of the box — hence the dynamic <code>import()</code> workaround below. As of <code>@adminjs/nestjs</code> v12, ESM is officially supported, so if you're on v12+ you likely don't need this workaround anymore. Leaving the original post below for anyone still pinned to v11 or an older CommonJS setup.
     </div>
 
-    <p>I'm writing this blog because AdminJS decided to go with ESM in their latest version (v7) and make my life harder (a bit) because NestJS are still using CommonJS and there's <a href="https://github.com/nestjs/nest/issues/13319" target="_blank">no plan to support ESM</a>.</p>
+    <p>I'm writing this blog because AdminJS decided to go with ESM in their latest version (v7) and make my life harder (a bit) because NestJS are still using CommonJS and there's <a href="https://github.com/nestjs/nest/issues/13319" target="_blank" rel="noopener noreferrer">no plan to support ESM</a>.</p>
 
     <h2>Simply my problem was</h2>
     <p>Use <code>require('adminjs')</code> and you get a <code>ERR_REQUIRE_ESM</code>. Use normal import in TypeScript, wait for CJS to compile, again you get a <code>ERR_REQUIRE_ESM</code>.</p>
 
     <h2>But hold up isn't there an official example?</h2>
-    <p>There's this repo people point to: <a href="https://github.com/dziraf/adminjs-v7-with-nestjs" target="_blank">dziraf/adminjs-v7-with-nestjs</a>. It claims to show AdminJS v7 running smoothly with NestJS, and the AdminJS docs even link to it as an example. Cool, right? Except... have you actually tried cloning and running it? It doesn't work. There's a known open issue that's been sitting there for years: <a href="https://github.com/dziraf/adminjs-v7-with-nestjs/issues/1" target="_blank">Not running · Issue #1</a>.</p>
+    <p>There's this repo people point to: <a href="https://github.com/dziraf/adminjs-v7-with-nestjs" target="_blank" rel="noopener noreferrer">dziraf/adminjs-v7-with-nestjs</a>. It claims to show AdminJS v7 running smoothly with NestJS, and the AdminJS docs even link to it as an example. Cool, right? Except... have you actually tried cloning and running it? It doesn't work. There's a known open issue that's been sitting there for years: <a href="https://github.com/dziraf/adminjs-v7-with-nestjs/issues/1" target="_blank" rel="noopener noreferrer">Not running · Issue #1</a>.</p>
 
     <h2>The trick in one sentence</h2>
     <p>Load AdminJS and friends with <strong>dynamic <code>import()</code></strong> inside an async function and keep everything else CommonJS like it always was.</p>
 
     <h2>Time to code</h2>
-    <p>Full working example: <a href="https://github.com/arab0v/nestjs-adminjs-starter" target="_blank">github.com/arab0v/nestjs-adminjs-starter</a></p>
+    <p>Full working example: <a href="https://github.com/arab0v/nestjs-adminjs-starter" target="_blank" rel="noopener noreferrer">github.com/arab0v/nestjs-adminjs-starter</a></p>
     <p>Make sure to roll back all the changes from the AdminJS documentation first, then let's start.</p>
 
     <p><strong>Package Installation</strong> — create a new Nest project in the current dir if you haven't already:</p>
     <pre><code>nest new .</code></pre>
 
-    <p>Install all the boys. Sequelize in my case (could be whatever you want — just install the ORM adapter from the <a href="https://docs.adminjs.co/installation/adapters" target="_blank">AdminJS docs</a>):</p>
+    <p>Install all the boys. Sequelize in my case (could be whatever you want — just install the ORM adapter from the <a href="https://docs.adminjs.co/installation/adapters" target="_blank" rel="noopener noreferrer">AdminJS docs</a>):</p>
     <pre><code>npm install sequelize adminjs @adminjs/nestjs @adminjs/sequelize @adminjs/express express-session express-formidable</code></pre>
 
     <p>Create the AdminJS ESM loader:</p>
@@ -128,8 +128,8 @@ export class AppModule {
 
     <h2>Resources that led me to this solution</h2>
     <ul>
-      <li><a href="https://docs.nestjs.com/fundamentals/dynamic-modules" target="_blank">DynamicModule chapter from NestJS</a></li>
-      <li><a href="https://stackoverflow.com/questions/70396400/how-to-use-es6-modules-in-commonjs" target="_blank">Running ESM packages in CommonJS</a></li>
+      <li><a href="https://docs.nestjs.com/fundamentals/dynamic-modules" target="_blank" rel="noopener noreferrer">DynamicModule chapter from NestJS</a></li>
+      <li><a href="https://stackoverflow.com/questions/70396400/how-to-use-es6-modules-in-commonjs" target="_blank" rel="noopener noreferrer">Running ESM packages in CommonJS</a></li>
     </ul>
 
     <h2>End</h2>
@@ -137,5 +137,6 @@ export class AppModule {
     <p>Good luck.</p>
   </div>
 </div>
+<script src="../readtime.js"></script>
 </body>
 </html>

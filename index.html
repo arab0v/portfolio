@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Yousef Aldabbas — Backend Engineer</title>
+<title>Yousef Aldabbas — Software Engineer</title>
 <style>
   :root{
     --bg:#0d0f12; --bg2:#0f1620; --card:#15181d; --border:#242a31;
@@ -35,6 +35,13 @@
   .prompt{color:var(--green); font-size:14px; margin-bottom:6px;}
   h1{font-size:36px; color:#fff; margin-bottom:4px;}
   .title{color:var(--muted); font-size:16px; margin-bottom:18px;}
+  .herolinks{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 20px;}
+  .herolinks .tag{
+    display:inline-block; background:#1c2128; border:1px solid var(--border);
+    color:var(--green); font-size:12.5px; padding:5px 10px; border-radius:6px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .herolinks .tag:hover{border-color:var(--green); background:#20272f;}
   .tags{display:flex; flex-wrap:wrap; gap:8px;}
   .tag{
     background:#1c2128; border:1px solid var(--border); color:var(--text);
@@ -42,11 +49,37 @@
   }
   h2.section{color:var(--green); font-size:13px; text-transform:uppercase; letter-spacing:1.5px; margin:56px 0 20px;}
   h2.section::before{content:"## "; color:var(--muted);}
+
+  /* --- skills block --- */
+  .skillblock{margin-top:6px;}
+  .skillrow{
+    display:grid; grid-template-columns:104px 1fr; gap:14px;
+    align-items:baseline; padding:5px 0;
+  }
+  .skilllabel{
+    color:var(--muted); font-size:12.5px; text-transform:uppercase;
+    letter-spacing:1px; white-space:nowrap;
+  }
+  .skilllist{font-size:13.5px; color:#d4d9e0;}
+  .expandbtn{
+    margin-top:10px; background:#1c2128; border:1px solid var(--border);
+    color:var(--green); font-family:inherit; font-size:12.5px;
+    padding:6px 12px; border-radius:6px; cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .expandbtn:hover{border-color:var(--green); background:#20272f;}
+  .expandbtn .caret{display:inline-block; transition:transform .15s ease;}
+  .expandbtn[aria-expanded="true"] .caret{transform:rotate(90deg);}
+  .skillmore{margin-top:12px;}
+  @media (max-width:640px){
+    .skillrow{grid-template-columns:1fr; gap:2px;}
+  }
   .project{
     background:var(--card); border:1px solid var(--border); border-radius:10px;
     padding:24px 28px; margin-bottom:22px;
   }
   .project h3{color:#fff; font-size:19px; margin-bottom:6px;}
+  .project .dates{color:var(--green); font-size:12.5px; margin-bottom:8px; letter-spacing:.5px;}
   .project p.desc{color:var(--muted); font-size:14px; margin-bottom:14px;}
   .project h4{color:var(--green); font-size:12.5px; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;}
   .project ul{list-style:none; margin-bottom:14px;}
@@ -87,63 +120,116 @@
     <div class="dots"><span></span><span></span><span></span></div>
     <div class="prompt">$ whoami</div>
     <h1>Yousef Aldabbas</h1>
-    <div class="title">Backend Software Engineer · Amman, Jordan</div>
-    <div class="prompt">$ skills</div>
-    <div class="tags">
-      <span class="tag">Python</span><span class="tag">FastAPI</span>
-      <span class="tag">Django / DRF</span><span class="tag">TypeScript</span>
-      <span class="tag">NestJS</span><span class="tag">Go</span>
-      <span class="tag">PostgreSQL</span><span class="tag">Redis</span>
-      <span class="tag">Keycloak</span><span class="tag">Auth0</span>
-      <span class="tag">CosmosDB</span><span class="tag">HL7/FHIR</span>
+    <div class="title">Software Engineer · Amman, Jordan</div>
+    <div class="herolinks">
+      <a class="tag" href="cv/Yousef-Aldabbas-CV.docx" download>Download CV</a>
+      <a class="tag" href="https://github.com/arab0v" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="tag" href="https://linkedin.com/in/yousef-aldabbas" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="tag" href="mailto:yousefaldabbas0@outlook.com">Email</a>
+      <a class="tag" href="blog/index.html">Blog</a>
     </div>
-  </div>
+
+    <div class="prompt">$ skills</div>
+    <div class="skillblock">
+      <div class="skillrow">
+        <span class="skilllabel">Languages</span>
+        <span class="skilllist">Python · JavaScript · TypeScript · Go</span>
+      </div>
+      <div class="skillrow">
+        <span class="skilllabel">Frameworks</span>
+        <span class="skilllist">NestJS · FastAPI · Django / DRF · Turborepo</span>
+      </div>
+      <div class="skillrow">
+        <span class="skilllabel">Databases</span>
+        <span class="skilllist">SQL (PostgreSQL) · NoSQL (Azure Cosmos DB, MongoDB) · Redis</span>
+      </div>
+
+      <button class="expandbtn" id="skillToggle" aria-expanded="false" aria-controls="skillMore">
+        <span class="caret">▸</span> frameworks &amp; tools
+      </button>
+
+      <div class="skillmore" id="skillMore" hidden>
+        <div class="skillrow">
+          <span class="skilllabel">Auth</span>
+          <span class="skilllist">Keycloak · Auth0 · AWS Cognito</span>
+        </div>
+        <div class="skillrow">
+          <span class="skilllabel">Compliance</span>
+          <span class="skilllist">GDPR · HL7 v2 · FHIR · financial data protection</span>
+        </div>
+        <div class="skillrow">
+          <span class="skilllabel">Infra</span>
+          <span class="skilllist">AWS · Azure · Docker · Turborepo monorepos</span>
+        </div>
+        <div class="skillrow">
+          <span class="skilllabel">Data</span>
+          <span class="skilllist">SQLAlchemy · Pydantic · azure-cosmos SDK · schema &amp; query optimization</span>
+        </div>
+        <div class="skillrow">
+          <span class="skilllabel">AI</span>
+          <span class="skilllist">Claude · Claude Code · Hermes (agent orchestration)</span>
+        </div>
+        <div class="skillrow">
+          <span class="skilllabel">Tools</span>
+          <span class="skilllist">Git · Postman · Jira · Swagger · Mermaid · Confluence</span>
+        </div>
+      </div>
+    </div>
+
+    </div>
 
   <h2 class="section">System Architecture & Projects</h2>
 
   <div class="project">
-    <h3>Rezefy — Student Housing Solution</h3>
-    <p class="desc">Backend engineer on Rezefy, a student housing platform built as a NestJS Turborepo monorepo (rezefy-api, rezefy-admin, rezefy-web), ramping up fast and shipping features within the first weeks.</p>
+    <h3><a href="https://rezefy.com" target="_blank" rel="noopener noreferrer">Rezefy</a> — Student Housing Solution</h3>
+    <div class="dates">Nov 2025 – Present</div>
+    <p class="desc">Backend engineer on Rezefy, a student housing platform built as a NestJS Turborepo monorepo (rezefy-api, rezefy-admin, rezefy-web).</p>
     <h4>Key Achievements</h4>
     <ul>
+      <li>Ramped up fast and shipped backend features within the first weeks</li>
       <li>Implement REST APIs and service logic in NestJS/TypeScript backed by PostgreSQL and Redis</li>
       <li>Work within the existing Keycloak-based auth/authorization setup across services</li>
+      <li>Solved the AdminJS v7 ESM / CommonJS-only NestJS interop problem with a dynamic <code>import()</code> loader, unblocking the admin build <a href="blog/posts/adminjs-v7-nestjs-without-tears.html">(write-up)</a></li>
       <li>Contribute to the AdminJS-based internal admin platform, using AI-assisted development to speed up delivery</li>
       <li>Align with the monorepo's shared libraries and turbo build pipeline conventions</li>
+      <li>Collaborate on system design decisions, balancing delivery speed with long-term maintainability</li>
     </ul>
     <div class="tags">
       <span class="tag">NestJS</span><span class="tag">TypeScript</span><span class="tag">Postgres</span>
-      <span class="tag">Redis</span><span class="tag">Keycloak</span><span class="tag">Turborepo</span>
+      <span class="tag">Redis</span><span class="tag">Keycloak</span><span class="tag">Turborepo</span><span class="tag">AWS</span>
     </div>
   </div>
 
   <div class="project">
-    <h3>MedWrite.ai — Multi-Tenant Clinical Platform</h3>
-    <p class="desc">Owned end-to-end delivery of Django/DRF backend services for a multi-tenant platform serving an estimated 10+ clinics and hospitals.</p>
+    <h3><a href="https://medwrite.ai" target="_blank" rel="noopener noreferrer">MedWrite.ai</a> — Multi-Tenant Clinical Platform</h3>
+    <div class="dates">Jul 2024 – Nov 2025</div>
+    <p class="desc">Owned end-to-end delivery of Django/DRF backend services for a multi-tenant platform serving 10+ clinics and hospitals.</p>
     <h4>Key Achievements</h4>
     <ul>
       <li>Built a deep feature-flagging system enabling per-client customization without forking the codebase</li>
-      <li>Designed multi-tenant data isolation supporting HL7 and FHIR clinical data exchange standards</li>
+      <li>Designed multi-tenant data isolation, and supported HL7 v2 and FHIR clinical data exchange standards</li>
       <li>Ensured GDPR-compliant patient data handling with Auth0-based authentication</li>
-      <li>Designed a custom micro-ODM for CosmosDB, closed-sourced for MedWrite.AI</li>
-      <li>Raised code coverage by an estimated 30+ percentage points via new unit testing practices</li>
+      <li>Built an internal typed ODM over the official <code>azure-cosmos</code> SDK (Cosmos DB NoSQL API) to fill a tooling gap in the codebase</li>
+      <li>Established unit testing practices across services, raising code coverage substantially</li>
     </ul>
     <div class="tags">
-      <span class="tag">Django</span><span class="tag">DRF</span><span class="tag">CosmosDB</span><span class="tag">HL7/FHIR</span><span class="tag">Auth0</span><span class="tag">GDPR</span>
+      <span class="tag">Django</span><span class="tag">DRF</span><span class="tag">Cosmos DB</span><span class="tag">HL7 v2 / FHIR</span><span class="tag">Auth0</span><span class="tag">GDPR</span><span class="tag">Azure</span>
     </div>
   </div>
 
   <div class="project">
-    <h3>Qawn Digital Bank — Microservices Platform</h3>
+    <h3><a href="https://qawn.com/" target="_blank" rel="noopener noreferrer">Qawn</a> Digital Bank — Microservices Platform</h3>
+    <div class="dates">Oct 2022 – Jul 2024</div>
     <p class="desc">Core banking microservices built with Python and FastAPI, supporting core banking operations for a growing user base.</p>
     <h4>Key Achievements</h4>
     <ul>
-      <li>Redesigned database schemas, queries and indexing, cutting p95 query response times by an estimated ~30% under peak load</li>
+      <li>Redesigned database schemas, queries and indexing, cutting p95 query response times by roughly 30% under peak load</li>
       <li>Implemented data encryption, access controls, and compliance measures aligned with financial industry regulations</li>
       <li>Collaborated with PMs and senior engineers through code and design reviews</li>
+      <li>Contributed to cross-company features, working directly with stakeholders across teams</li>
     </ul>
     <div class="tags">
-      <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Microservices</span>
+      <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Microservices</span><span class="tag">AWS</span>
     </div>
   </div>
 
@@ -165,7 +251,7 @@
         <ul>
           <li>• Postgres schema design & query optimization</li>
           <li>• Redis for caching / session data</li>
-          <li>• Custom ODM for CosmosDB in MedWrite.ai</li>
+          <li>• Custom ODM for Cosmos DB in MedWrite.ai</li>
           <li>• Multi-tenant data isolation & HL7/FHIR integration</li>
         </ul>
       </div>
@@ -179,7 +265,7 @@
         <h4>Languages</h4>
         <ul>
           <li>• Python (FastAPI, Django/DRF)</li>
-          <li>• TypeScript (NestJS)</li>
+          <li>• TypeScript (NestJS), JavaScript</li>
           <li>• Go</li>
         </ul>
       </div>
@@ -187,8 +273,75 @@
         <h4>Other</h4>
         <ul>
           <li>• Compliance: GDPR, financial data protection standards</li>
-          <li>• AI-assisted development (Claude, Claude Code) for faster delivery</li>
-          <li>• Prefers offline-first / community-standard tooling</li>
+          <li>• AI tools: Claude, Claude Code, Hermes (AI agent orchestration)</li>
+          <li>• Dev tools: Git, Postman, Jira, Mermaid, Swagger, Confluence</li>
+          <li>• Also familiar with: MongoDB, Docker, AWS, Go (bootcamp)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section">Side Projects</h2>
+
+  <div class="project">
+    <h3>Codm — Object Document Mapper for CosmosDB</h3>
+    <p class="desc">Built an internal typed ODM over the official <code>azure-cosmos</code> SDK (Cosmos DB NoSQL API) to make document persistence consistent and type-safe across the codebase.</p>
+    <h4>Key Points</h4>
+    <ul>
+      <li>Studied the builder pattern in OOP and analyzed the internals of existing ORMs/ODMs to shape the design</li>
+      <li>Used Pydantic to create models and validate data in and out of the database</li>
+      <li>Employed Pytest for unit testing, maintaining high test coverage</li>
+      <li>Shipped as an internal library at MedWrite.AI</li>
+    </ul>
+    <div class="tags">
+      <span class="tag">uv</span><span class="tag">Pytest</span><span class="tag">Pydantic</span><span class="tag">azure-cosmos</span>
+    </div>
+  </div>
+
+  <div class="project">
+    <h3>Smart Assets — GenAI Hackathon</h3>
+    <p class="desc">Real-estate investment platform powered with AI, giving investors access to a diverse range of properties and crowdfunding options.</p>
+    <h4>Key Points</h4>
+    <ul>
+      <li>Developed and launched an online platform facilitating real estate investment opportunities, including property crowdfunding</li>
+      <li>Took a fast MVP approach to deliver core functionality within the hackathon timeframe</li>
+      <li>Enhanced portfolio diversification opportunities for investors</li>
+    </ul>
+    <div class="tags">
+      <span class="tag">Django</span><span class="tag">DRF</span><span class="tag">SQLite</span><span class="tag">OpenAI</span>
+    </div>
+  </div>
+
+  <div class="project">
+    <h3>FastAPI Boilerplate — Contributor</h3>
+    <p class="desc">Boilerplate for FastAPI that implements best practices for designing a server: FastAPI, Pydantic, Docker, async, SQLAlchemy, PostgreSQL.</p>
+    <h4>Key Points</h4>
+    <ul>
+      <li>Refactored the test execution strategy to improve efficiency and reduce runtime</li>
+      <li>Introduced advanced mocking techniques to isolate components and ensure reliable unit tests</li>
+      <li>Improved test readability and maintainability by adopting best practices for async code testing</li>
+    </ul>
+    <div class="tags">
+      <span class="tag">FastAPI</span><span class="tag">Pydantic</span><span class="tag">Docker</span><span class="tag">SQLAlchemy</span>
+    </div>
+  </div>
+
+  <h2 class="section">Education & Certificates</h2>
+
+  <div class="impact">
+    <div class="grid2">
+      <div class="col">
+        <h4>Education</h4>
+        <ul>
+          <li>• Bachelor's degree in Computer Science — BAU</li>
+          <li>• Honor certificate for graduation project — BAU</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Certificates</h4>
+        <ul>
+          <li>• Python and data analysis certificate — Jordan Ahli Bank</li>
+          <li>• Go programming bootcamp — Udemy</li>
         </ul>
       </div>
     </div>
@@ -196,14 +349,29 @@
 
   <div class="contact">
     <h2>Let's Connect</h2>
-    <div class="loc">Amman, Jordan</div>
+    <div class="loc">Amman, Jordan · Open to backend roles (onsite / hybrid / remote)</div>
     <a href="mailto:yousefaldabbas0@outlook.com">yousefaldabbas0@outlook.com</a>
     <div class="links">
-      <a href="https://github.com/arab0v" target="_blank">GitHub @arab0v</a>
-      <a href="https://linkedin.com/in/yousef-aldabbas" target="_blank">LinkedIn</a>
+      <a href="cv/Yousef-Aldabbas-CV.docx" download>Download CV</a>
+      <a href="https://github.com/arab0v" target="_blank" rel="noopener noreferrer">GitHub @arab0v</a>
+      <a href="https://linkedin.com/in/yousef-aldabbas" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="blog/index.html">Blog</a>
     </div>
   </div>
 
 </div>
+<script>
+  (function () {
+    var btn = document.getElementById('skillToggle');
+    var more = document.getElementById('skillMore');
+    if (!btn || !more) return;
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      more.hidden = open;
+      btn.querySelector('.caret').textContent = open ? '\u25B8' : '\u25BE';
+    });
+  })();
+</script>
 </body>
 </html>

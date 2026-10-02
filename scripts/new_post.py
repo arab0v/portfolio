@@ -35,11 +35,12 @@ TEMPLATE = """<!DOCTYPE html>
     <h1>{title}</h1>
     <div class="meta">{date} · {tags_str}</div>
     <p>Write your post here.</p>
-  </div>
-</div>
-</body>
-</html>
-"""
+    </div>
+    </div>
+    <script src="../readtime.js"></script>
+    </body>
+    </html>
+    """
 
 def slugify(title):
     s = title.lower().strip()
@@ -72,6 +73,7 @@ def main():
         f'    "slug": "{slug}",\n'
         f'    "title": {json.dumps(title)},\n'
         f'    "date": "{date}",\n'
+        f'    "read": 1,\n'
         f'    "desc": {json.dumps(desc)},\n'
         f'    "tags": {json.dumps(tags)}\n'
         "  },\n"
@@ -82,6 +84,7 @@ def main():
     print(f"Created {post_path}")
     print(f"Registered in {DATA_FILE}")
     print("Edit the .post-body content in the HTML file to write your post.")
+    print("Then run scripts/update_read_times.py to set accurate read times.")
 
 if __name__ == "__main__":
     main()
